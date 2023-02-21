@@ -1,10 +1,16 @@
 import requests
 import os
+# from dotenv import dotenv_values
 from twilio.rest import Client
+from dotenv import load_dotenv
 
-account_sid = 'AC3a32b779a0b2a35e464c8b2acdb6c675'
-auth_token = '2edf7740e8590a7e860ef71e3c7099a8'
-api_key = "1603e56e6f64ce1a78179485b7d4fd51"
+load_dotenv()
+print(os.getenv("PATH"))
+account_sid = os.getenv("account_sid")
+auth_token = os.getenv("auth_token")
+api_key = os.getenv("api_key")
+MY_PHONE = os.getenv("MY_PHONE")
+TWILIO_PHONE = os.getenv("TWILIO_PHONE")
 OWM_Endpoint = "https://api.openweathermap.org/data/2.5/onecall"
 weather_params = {
     "lat": 40.712776,
@@ -30,8 +36,8 @@ if will_rain:
     message = client.messages \
         .create(
         body="It's going to rain today. Remember to bring an ☔️.",
-        from_='+18777489136',
-        to='+18124317791'
+        from_= TWILIO_PHONE,
+        to= MY_PHONE
     )
 
     print(message.status)
